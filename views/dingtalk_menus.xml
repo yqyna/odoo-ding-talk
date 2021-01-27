@@ -2,11 +2,11 @@
 <odoo>
     <template id="dingtalk_mc_template" name="DingDing Hrm Template" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/odoo-ding-talk/static/src/js/dingtalk_callback.js"></script>
+            <script type="text/javascript" src="/odoo-ding-talk/static/src/js/dingtalk_callback.js"/>
         </xpath>
     </template>
 
     <menuitem name="钉钉" id="root_menu" web_icon="odoo-ding-talk,static/description/icon.png" sequence="50"/>
-
+    <menuitem name="工具" id="tool_menu" parent="root_menu" sequence="80" groups="odoo-ding-talk.manage_groups"/>
     <menuitem name="配置" id="config_menu" parent="root_menu" sequence="99" groups="odoo-ding-talk.manage_groups"/>
 </odoo>
