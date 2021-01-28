@@ -15,9 +15,14 @@
     'data': [
         'security/res_groups.xml',
         'security/ir.model.access.csv',
+        'security/ir_rule.xml',
+        'data/auth_oauth_data.xml',
         'views/dingtalk_menus.xml',
         'views/dingtalk_config.xml',
         'views/dingtalk_login_template.xml',
+        'views/dingtalk_message_log.xml',
+        'data/default_message_config.xml',
+        'views/dingtalk_msg_config.xml',
 
         'wizard/synchronous.xml',
     ],
