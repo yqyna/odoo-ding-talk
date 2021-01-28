@@ -150,3 +150,41 @@ class DingTalkMcSynchronous(models.TransientModel):
         except Exception as e:
             raise UserError(e)
 
+
+# 针对系统已存在的系统用户，将员工的相关系统用户以名字进行匹配后关联
+class EmployeeToUser(models.TransientModel):
+    _name = 'dingtalk.emp.related.users'
+    _description = '批量关联用户'
+
+    company_id = fields.Many2one(comodel_name='res.company', string="选择公司", required=True,
+                                 default=lambda self: self.env.user.company_id)
+
+    def related_user(self):
+        """
+        自动将没有关联用户的员工通过名称进行关联
+        1.获取所有相关用户（user_id）为空的员工
+        2.逐个将员工名称到系统用户（res.users）中匹配
+            1.若存在，则将user的id写入到员工的相关用户（user_id）中
+            2.若不存在，则跳过
+        :return:
+        """
+        self.ensure_one()
+        related = self.env['dingtalk.emp.related.users']
+        company_id = self.company_id
+        t = threading.Thread(target=related.start_related_user, args=(company_id))
+        t.start()
+        return True
+
+    @api.model
+    def start_related_user(self, company):
+        with api.Environment.manage():
+            with self.pool.cursor() as new_cr:
+                new_cr.autocommit(True)
+                self = self.with_env(self.env(cr=new_cr))
+                # 查找未绑定系统用户的钉钉员工
+                employees = self.env['hr.employee'].search([('user_id', '=', False), ('company_id', '=', company.id)])
+                for emp in employees:
+                    # 根据以名称来匹配系统用户
+                    user = self.env['res.users'].with_user(SUPERUSER_ID).search([('name', '=', emp.name)], limit=1)
+                    if user:
+                        emp.write({'user_id': user.id})

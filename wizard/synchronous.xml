@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
+    <!--  组织结构同步  -->
     <record id="dingtalk_mc_synchronous_form_view" model="ir.ui.view">
         <field name="name">组织结构同步</field>
         <field name="model">dingtalk.mc.synchronous</field>
@@ -38,5 +38,37 @@
 
     <menuitem name="组织架构同步" id="dingtalk_mc_menu" parent="tool_menu" sequence="1"
               action="dingtalk_mc_synchronous_action" groups="odoo-ding-talk.manage_groups"/>
+
+    <!--  批量关联用户  -->
+    <record id="dingtalk_emp_related_users_form_view" model="ir.ui.view">
+        <field name="name">批量关联用户</field>
+        <field name="model">dingtalk.emp.related.users</field>
+        <field name="arch" type="xml">
+            <form>
+                <p class="alert text-info">此功能可以将系统中的员工和用户通过名称自动进行关联</p>
+                <p class="alert text-danger">注意：此工具仅支持员工名和用户名完全一致方可匹配成功。反之会关联失败！</p>
+                <p class="alert text-waring">点击确认后，系统会在后台自动进行处理。</p>
+                <group col="1">
+                    <group>
+                        <field name="company_id" options='{"no_open": True, "no_create": True}'/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="确认关联" name="related_user" type="object" class="oe_highlight"/>
+                    <button string="取消" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="dingtalk_emp_related_users_action" model="ir.actions.act_window">
+        <field name="name">批量关联用户</field>
+        <field name="res_model">dingtalk.emp.related.users</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="批量关联用户" id="dingtalk_emp_related_users_menu" parent="tool_menu" sequence="4"
+              action="dingtalk_emp_related_users_action" groups="odoo-ding-talk.manage_groups"/>
 
 </odoo>
