@@ -17,6 +17,7 @@
         'security/ir.model.access.csv',
         'views/dingtalk_menus.xml',
         'views/dingtalk_config.xml',
+        'views/dingtalk_login_template.xml',
 
         'wizard/synchronous.xml',
     ],
