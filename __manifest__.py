@@ -4,7 +4,7 @@
     'summary': """Odoo钉钉模块""",
     'description': """Odoo钉钉模块""",
     'category': 'dingtalk',
-    'version': '12.1.2',
+    'version': '14.0',
     'depends': ['base', 'hr', 'mail', 'auth_oauth', 'hr_attendance'],
     'external_dependencies': {
         'python': ['pypinyin', 'pycryptodome', 'dingtalk-sdk'],
@@ -17,6 +17,8 @@
         'security/ir.model.access.csv',
         'views/dingtalk_menus.xml',
         'views/dingtalk_config.xml',
+
+        'wizard/synchronous.xml',
     ],
     'qweb': [
         'static/xml/*.xml',

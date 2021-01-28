@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="dingtalk_mc_synchronous_form_view" model="ir.ui.view">
+        <field name="name">组织结构同步</field>
+        <field name="model">dingtalk.mc.synchronous</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="alert alert-info" role="alert">
+                    <p>选择需要同步的钉钉企业数据，同步数据量较大的话，等待时间取决于数据大小~</p>
+                </div>
+                <group>
+                    <field name="company_ids" widget="many2many_tags" options="{'no_create':1, 'no_open':1}"/>
+                </group>
+                <group>
+                    <group string="同步内容">
+                        <field name="department" widget="boolean_toggle"/>
+                        <field name="employee" widget="boolean_toggle"/>
+                    </group>
+                    <group string="同步选项">
+                        <field name="repeat_type" widget="radio" options="{'horizontal': true}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="立即同步" name="start_synchronous_data" type="object" class="oe_highlight"/>
+                    <button string="取消" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="dingtalk_mc_synchronous_action" model="ir.actions.act_window">
+        <field name="name">组织结构同步</field>
+        <field name="res_model">dingtalk.mc.synchronous</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="组织架构同步" id="dingtalk_mc_menu" parent="tool_menu" sequence="1"
+              action="dingtalk_mc_synchronous_action" groups="odoo-ding-talk.manage_groups"/>
+
+</odoo>
