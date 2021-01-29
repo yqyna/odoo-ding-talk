@@ -27,7 +27,7 @@ class DingTalkMcLogin(Controller):
         """
         ensure_db()
         if not request.session.uid:
-            return request.render('dingtalk_mc.dingtalk_mc_login_signup')
+            return request.render('odoo-ding-talk.dingtalk_mc_login_signup')
         request.uid = request.session.uid
         try:
             context = request.env['ir.http'].webclient_rendering_context()
@@ -39,7 +39,7 @@ class DingTalkMcLogin(Controller):
                 request.session.uid = False
             if request.session.login:
                 request.session.login = False
-            return request.render('dingtalk_mc.dingtalk_mc_login_signup')
+            return request.render('odoo-ding-talk.dingtalk_mc_login_signup')
 
     @http.route('/web/dingtalk/mc/get/companys', type='http', auth='public', website=True, sitemap=False)
     def dingtalk_mc_get_companys(self):
@@ -176,7 +176,7 @@ class OAuthController(Controller):
             request.session.uid = False
         if request.session.login:
             request.session.login = False
-        return request.render('dingtalk_mc.auto_login_signup', data)
+        return request.render('odoo-ding-talk.auto_login_signup', data)
 
     @http.route('/web/dingtalk/mc/auto/login/action', type='http', auth='none', website=True, sitemap=False)
     @fragment_to_query_string
@@ -242,4 +242,4 @@ class OAuthController(Controller):
             'ding_error': errmsg
         })
         _logger.info("免密登陆失败,Error:{}".format(ding_error))
-        return request.render('dingtalk_mc.dingtalk_mc_login_result_signup', ding_error)
+        return request.render('odoo-ding-talk.dingtalk_mc_login_result_signup', ding_error)
