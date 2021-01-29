@@ -7,6 +7,7 @@
     </template>
 
     <menuitem name="钉钉" id="root_menu" web_icon="odoo-ding-talk,static/description/icon.png" sequence="50"/>
+    <menuitem name="属性" id="attrs_menu" parent="root_menu" sequence="20"/>
     <menuitem name="消息" id="message_menu" parent="root_menu" sequence="10" groups="odoo-ding-talk.manage_groups"/>
     <menuitem name="日志" id="log_menu" parent="root_menu" sequence="90" groups="odoo-ding-talk.manage_groups"/>
     <menuitem name="工具" id="tool_menu" parent="root_menu" sequence="99" groups="odoo-ding-talk.manage_groups"/>

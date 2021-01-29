@@ -23,6 +23,9 @@
         'views/dingtalk_message_log.xml',
         'data/default_message_config.xml',
         'views/dingtalk_msg_config.xml',
+        'views/res_partner.xml',
+        'views/res_users.xml',
+
 
         'wizard/synchronous.xml',
     ],
