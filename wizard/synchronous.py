@@ -188,3 +188,72 @@ class EmployeeToUser(models.TransientModel):
                     user = self.env['res.users'].with_user(SUPERUSER_ID).search([('name', '=', emp.name)], limit=1)
                     if user:
                         emp.write({'user_id': user.id})
+
+
+# 根据钉钉员工创建系统用户（首先需要拉取钉钉员工数据，再执行此操作）
+class CreateResUser(models.TransientModel):
+    _name = 'create.mc.res.user'
+    _description = "创建用户"
+
+    company_id = fields.Many2one(comodel_name='res.company', string="所属公司", required=True,
+                                 default=lambda self: self.env.user.company_id)
+    is_all = fields.Boolean(string=u'全部员工?')
+    employee_ids = fields.Many2many(comodel_name='hr.employee', string=u'员工',
+                                    domain="[('company_id', '=', company_id), ('user_id', '=', False)]")
+    ttype = fields.Selection(string=u'登陆账号', selection=[('phone', '工作手机'), ('email', '工作Email')], default='phone')
+
+    @api.onchange('is_all')
+    def _onchange_is_all(self):
+        for res in self:
+            if res.is_all:
+                domain = [
+                    ('user_id', '=', False),
+                    ('company_id', '=', self.env.user.company_id.id),
+                    ('ding_id', '!=', False)
+                ]
+                emps = self.env['hr.employee'].search(domain)
+                self.employee_ids = [(6, 0, emps.ids)]
+            else:
+                self.employee_ids = [(2, 0, self.employee_ids.ids)]
+
+    def create_user(self):
+        """
+        根据员工创建系统用户
+        :return:
+        """
+        self.ensure_one()
+        company_id = self.company_id.id
+        # 封装消息
+        message_list = list()
+        for employee in self.employee_ids:
+            values = {
+                'active': True,
+                'company_id': company_id,
+                "name": employee.name,
+                'email': employee.work_email,
+                'ding_user_id': employee.ding_id,
+                'ding_user_phone': employee.mobile_phone,
+                'employee': True,
+                'employee_ids': [(6, 0, [employee.id])],
+            }
+            if self.ttype == 'email':
+                if not employee.work_email:
+                    raise UserError("员工{}不存在工作邮箱，无法创建用户!".format(employee.name))
+                values.update({'login': employee.work_email, "password": employee.work_email})
+            else:
+                if not employee.mobile_phone:
+                    raise UserError("员工{}办公手机为空，无法创建用户!".format(employee.name))
+                values.update({'login': employee.mobile_phone, "password": employee.mobile_phone})
+            domain = ['|', ('login', '=', employee.work_email), ('login', '=', employee.mobile_phone)]
+            user = self.env['res.users'].with_user(SUPERUSER_ID).search(domain, limit=1)
+            if user:
+                employee.write({'user_id': user.id})
+            else:
+                name_count = self.env['res.users'].with_user(SUPERUSER_ID).search_count([('name', 'like', employee.name)])
+                if name_count > 0:
+                    user_name = employee.name + str(name_count + 1)
+                    values['name'] = user_name
+                user = self.env['res.users'].with_user(SUPERUSER_ID).create(values)
+                employee.write({'user_id': user.id})
+            message_list.append({'ding_id': employee.ding_id, 'values': values})
+        return {'type': 'ir.actions.act_window_close'}

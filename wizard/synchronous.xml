@@ -71,4 +71,41 @@
     <menuitem name="批量关联用户" id="dingtalk_emp_related_users_menu" parent="tool_menu" sequence="4"
               action="dingtalk_emp_related_users_action" groups="odoo-ding-talk.manage_groups"/>
 
+    <!--  创建系统用户  -->
+    <record id="create_res_user_form_view" model="ir.ui.view">
+        <field name="name">创建用户</field>
+        <field name="model">create.mc.res.user</field>
+        <field name="arch" type="xml">
+            <form>
+                <p>登陆账号：即根据选择的类型作为该用户的登录用户名.</p>
+                <group>
+                    <group>
+                        <field name="company_id" options='{"no_open": True, "no_create": True}'/>
+                    </group>
+                    <group>
+                        <field name="is_all"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="ttype" widget="radio" options="{'horizontal': true}"/>
+                    <field name="employee_ids" widget="many2many_tags" options='{"no_open": True, "no_create": True}' required="1"/>
+                </group>
+                <footer>
+                    <button string="立即创建" name="create_user" type="object" class="oe_highlight"/>
+                    <button string="取消" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="create_res_user_action" model="ir.actions.act_window">
+        <field name="name">创建用户</field>
+        <field name="res_model">create.mc.res.user</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <menuitem name="创建系统用户" id="create_res_user_menu" parent="tool_menu" sequence="3"
+               action="create_res_user_action" groups="odoo-ding-talk.manage_groups"/>
+
 </odoo>

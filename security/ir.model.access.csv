@@ -2,6 +2,8 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_dingtalk_mc_config,dingtalk.mc.config,model_dingtalk_mc_config,odoo-ding-talk.manage_groups,1,1,1,1
 access_dingtalk_mc_synchronous,dingtalk.mc.synchronous,model_dingtalk_mc_synchronous,odoo-ding-talk.manage_groups,1,1,1,1
 access_dingtalk_emp_related_users,dingtalk.emp.related.users,model_dingtalk_emp_related_users,odoo-ding-talk.manage_groups,1,1,1,1
+access_create_mc_res_user,create.mc.res.user,model_create_mc_res_user,odoo-ding-talk.manage_groups,1,1,1,1
+
 
 access_dingtalk_message_log,dingtalk.message.log,model_dingtalk_message_log,,1,1,1,1
 access_dingtalk_send_chat_message,dingtalk.send.chat.message,model_dingtalk_send_chat_message,odoo-ding-talk.manage_groups,1,1,1,1
