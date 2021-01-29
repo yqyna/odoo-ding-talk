@@ -58,10 +58,10 @@
                                 <field name="department_ids" widget="many2many_tags" attrs="{'invisible': [('ttype', '!=', 'notice')]}"
                                        options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
                                 <field name="to_all_user" attrs="{'invisible': [('ttype', '!=', 'notice')]}"/>
-                                <field name="chat_id" attrs="{'invisible': [('ttype', '!=', 'chat')], 'required': [('ttype', '=', 'chat')]}"
-                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
-                                <field name="robot_id" attrs="{'invisible': [('ttype', '!=', 'robot')], 'required': [('ttype', '=', 'robot')]}"
-                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+<!--                                <field name="chat_id" attrs="{'invisible': [('ttype', '!=', 'chat')], 'required': [('ttype', '=', 'chat')]}"-->
+<!--                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>-->
+<!--                                <field name="robot_id" attrs="{'invisible': [('ttype', '!=', 'robot')], 'required': [('ttype', '=', 'robot')]}"-->
+<!--                                       options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>-->
                             </group>
                         </page>
                         <page string="内容模板">

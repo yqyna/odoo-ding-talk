@@ -44,8 +44,8 @@ class DingtalkMsgConfig(models.Model):
                                 string="接受消息用户", domain="[('ding_id', '!=', '')]")
     department_ids = fields.Many2many('hr.department', 'dingtalk_messgage_department_rel',
                                       string="接受消息部门", domain="[('ding_id', '!=', '')]")
-    chat_id = fields.Many2one(comodel_name="dingtalk.mc.chat", string="群会话")
-    robot_id = fields.Many2one(comodel_name="dingtalk.chat.robot", string="群机器人")
+    # chat_id = fields.Many2one(comodel_name="dingtalk.mc.chat", string="群会话")
+    # robot_id = fields.Many2one(comodel_name="dingtalk.chat.robot", string="群机器人")
     model_id = fields.Many2one('ir.model', string=u'应用于', index=True, ondelete="set null", domain=_compute_domain)
 
     button_ids = fields.Many2many('dingtalk.message.config.but', 'dingtalk_message_config_button_rel',
