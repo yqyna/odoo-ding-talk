@@ -45,8 +45,8 @@
         <field name="model">dingtalk.emp.related.users</field>
         <field name="arch" type="xml">
             <form>
-                <p class="alert text-info">此功能可以将系统中的员工和用户通过名称自动进行关联</p>
-                <p class="alert text-danger">注意：此工具仅支持员工名和用户名完全一致方可匹配成功。反之会关联失败！</p>
+                <p class="alert text-info">此功能可以将系统中的员工和用户通过钉钉手机号自动进行关联</p>
+                <p class="alert text-danger">注意：此工具仅支持员工钉钉手机号和用户钉钉手机号完全一致方可匹配成功。反之会关联失败！</p>
                 <p class="alert text-waring">点击确认后，系统会在后台自动进行处理。</p>
                 <group col="1">
                     <group>
