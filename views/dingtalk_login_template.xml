@@ -71,4 +71,13 @@
         </t>
     </template>
 
+    <template id="auth_oauth_dingtalk" inherit_id="web.login" name="OAuth Login dingtalk">
+            <xpath expr="//button[@type='submit']" position="after">
+              <div class="justify-content-between mt-2 d-flex small">
+<!--                  ?response_type=token&client_id=False&redirect_uri=http://127.0.0.1:8069/auth_oauth/signin&scope=钉钉-扫码登陆&state={"d": "dev_odoo14", "p": 4, "r": "http://127.0.0.1:8069/web"}-->
+                <a role="button" href="/web/dingtalk/mc/login" class="btn btn-primary btn-block">钉钉扫码登陆</a>
+             </div>
+            </xpath>
+    </template>
+
 </odoo>

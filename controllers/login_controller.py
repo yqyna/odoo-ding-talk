@@ -144,7 +144,7 @@ class DingTalkMcLogin(Controller):
             'ding_error': errmsg,
         })
         _logger.info("扫码登陆失败,Error:{}".format(ding_error))
-        response = request.render('dingtalk_mc.dingtalk_mc_login_result_signup', ding_error)
+        response = request.render('odoo-ding-talk.dingtalk_mc_login_result_signup', ding_error)
         response.headers['X-Frame-Options'] = 'DENY'
         return response
 

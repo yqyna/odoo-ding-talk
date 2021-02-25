@@ -185,7 +185,9 @@ class EmployeeToUser(models.TransientModel):
                 employees = self.env['hr.employee'].search([('user_id', '=', False), ('company_id', '=', company.id)])
                 for emp in employees:
                     # 根据以名称来匹配系统用户
-                    user = self.env['res.users'].with_user(SUPERUSER_ID).search([('name', '=', emp.name)], limit=1)
+                    # user = self.env['res.users'].with_user(SUPERUSER_ID).search([('name', '=', emp.name)], limit=1)
+                    # 根据以钉钉登录手机号来匹配系统用户
+                    user = self.env['res.users'].with_user(SUPERUSER_ID).search([('ding_user_phone', '=', emp.mobile_phone)], limit=1)
                     if user:
                         emp.write({'user_id': user.id})
 
